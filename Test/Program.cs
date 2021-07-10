@@ -17,40 +17,42 @@ namespace Test
 
         static void Main(string[] args)
         {
-            var Mymenu = new MenuBuilder()
-                .TITLE("Demo").SET_ID("Main")
-                .SetOption("Opcion", "first", testAction)
-                .SetOption("Opcion", "t3", testAction)
-                .ADD_SUBMENU
-                    .TITLE("Submenu 1").SET_ID("s1")
-                    .SetOption("Opcion", "first-layer", testAction)
-                    .SetOption("Opcion", "first-layer", testAction)
-                    .SetOption("Opcion", "first-layer", testAction)
-                    .SetOption("Opcion", "first-layer", testAction)
-                    .SetOption("Opcion", "t4", testAction)
-                    .SetOption("Opcion", "first-layer", testAction)
-                    .SetOption("Opcion", "first-layer", testAction)
-                .END_SUBMENU
-                .SetOption("Opcion", "first-layer", testAction)
-                .SetOption("Opcion", "first-layer", testAction)
-                .SetOption("Opcion", "first-layer", testAction)
-                .SetOption("Opcion", "target", testAction)
-                .END_MENU;
-
-            var element1 = Mymenu.GetElementByID("t3");
-            element1.ColorStyle = ConsoleColor.Green;
-
-            var element2 = Mymenu.GetElementByID("t4");
-            element2.ColorStyle = ConsoleColor.Yellow;
-
-            var element3 = Mymenu.GetElementByID("target");
-            element3.ColorStyle = ConsoleColor.Red;
+            var myMenu = new MenuBuilder()
+                .NEW_MENU.HEADER("menu principal", "menu")
+                    .SetOption("realizar alguna accion", testAction)
+                    .SetOption("realizar alguna accion", testAction)
+                    .SetOption("realizar alguna accion", testAction)
+                    .ADD_SUBMENU.HEADER("primer submenu", "menu")
+                        .SetOption("realizar alguna accion", testAction)
+                        .ADD_SUBMENU.HEADER("summenu interno", "menu")
+                            .SetOption("realizar alguna accion", testAction)
+                            .SetOption("realizar alguna accion", testAction)
+                            .SetOption("realizar alguna accion", testAction)
+                        .END_SUBMENU
+                        .SetOption("realizar alguna accion", testAction)
+                    .END_SUBMENU
+                    .SetOption("realizar alguna accion", testAction)
+                    .SetOption("realizar alguna accion", testAction)
+                    .END_MENU;
 
 
-            Mymenu.Display();
-            Thread.Sleep(4000);
-            Mymenu.Select(3);
-            Console.ReadKey();
+
+
+
+            //var element = myMenu.GetElementByID("demo");
+            //element.Styles.Color = ConsoleColor.Blue;
+
+            var bacOptions = myMenu.GetAllElementsByID("menu");
+            foreach (var item in bacOptions) item.Styles.ColorHeader = ConsoleColor.Red;
+
+            //var targetOptions = myMenu.GetAllElementsByID("m1");
+            //foreach (var item in targetOptions) item.Styles.Color = ConsoleColor.Green;
+
+            //var targetOptions = myMenu.GetAllElementsByID("m1");
+            //foreach (var item in targetOptions) item.Styles.Color = ConsoleColor.Green;
+
+            var menuManager = new MenuManager(myMenu);
+            menuManager.Execute();
         }
     }
 }

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 
 namespace EasyMenu.src
 {
-    public class Menu 
+    public class Menu
     {
-        public string Title { get; set; }     
+        public string Title { get; set; }
         public string Id { get; set; }
         public Action Action { get; set; } = () => { };
         public int Index { private get; set; }
-        public ConsoleColor ColorStyle { private get; set; } = ConsoleColor.White;   
+        public Styles Styles { get; set; } = new Styles();
         private readonly List<Menu> _childs = new List<Menu>();
+        public int ChildsCount => _childs.Count;
 
         public Menu() { }
 
@@ -19,10 +20,16 @@ namespace EasyMenu.src
             Title = title;
         }
 
-        public Menu(string title, string id, Action action)
+        public Menu(string title, Action action, string id)
         {
             Title = title;
+            Action = action;
             Id = id;
+        }
+
+        public Menu(string title, Action action)
+        {
+            Title = title;
             Action = action;
         }
 
@@ -35,25 +42,36 @@ namespace EasyMenu.src
         public void Display()
         {
             Console.Clear();
-            Console.ForegroundColor = ColorStyle;
-            Console.WriteLine($"//***********    {Title.ToUpper()}    ***********\\\r\n");
+            Console.ForegroundColor = Styles.ColorHeader;
+            Console.WriteLine($"//***********    {Title.ToUpper()}    ***********\\\\\r\n\n");
             Console.ForegroundColor = ConsoleColor.White;
-            foreach (var element in _childs) element.Print();           
+            foreach (var element in _childs) element.Print();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\n>> ");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void Print()
         {
-            Console.ForegroundColor = ColorStyle;
-            Console.WriteLine($"[{Index}]-{Title}\r\n");
+            Console.ForegroundColor = Styles.Color;
+            Console.WriteLine($"[{ Index }]-{ CapitalizrFirst(Title) }\r\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void Select(int index)
+        private string CapitalizrFirst(string str)
+        {
+            if (str.Length == 1)
+                return char.ToUpper(str[0]).ToString();
+            else
+                return char.ToUpper(str[0]) + str.Substring(1);
+        }
+
+        public Menu Select(int index)
         {
             var option = _childs[--index];
             option.Display();
             option.Action();
-            //this.Display();
+            return option;
         }
 
         public Menu GetElementByID(string id)
@@ -64,10 +82,22 @@ namespace EasyMenu.src
                 foreach (var child in _childs)
                 {
                     var result = child.GetElementByID(id);
-                    if (result != null)
-                        return result;
+                    if (result != null) return result;
                 }       
             return null;
+        }
+
+        public IEnumerable<Menu> GetAllElementsByID(string id)
+        {
+            var result = new List<Menu>();
+            if (Id == id)
+                result.Add(this);
+            foreach (var child in _childs)
+            {
+                var elements = child.GetAllElementsByID(id);
+                if (elements != null) result.AddRange(elements);
+            }
+            return result;
         }
     }
 }

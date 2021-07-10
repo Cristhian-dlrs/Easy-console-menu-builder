@@ -15,33 +15,52 @@ namespace EasyMenu.src
             _parent = parent;
         }
 
+        public MenuBuilder NEW_MENU => this;
+
         public MenuBuilder ADD_SUBMENU => new MenuBuilder(this);
 
-        public MenuBuilder END_SUBMENU => ResolveSubMenu();
-
-        private MenuBuilder ResolveSubMenu()
+        public MenuBuilder END_SUBMENU
         {
-            _parent.Root.AppendChild(this.Root);
-            return _parent;
+            get
+            {
+                SetOption("Atrás", () => { }, "atras");
+                _parent.Root.AppendChild(this.Root);
+                return _parent;
+            }
         }
 
-        public Menu END_MENU => Root;
+        public Menu END_MENU
+        {
+            get
+            {
+                SetOption("Salir", () => { }, "salir");
+                return Root;
+            }
+        }
 
-        public MenuBuilder TITLE(string title)
+        public MenuBuilder HEADER(string title)
         {
             Root.Title = title;
             return this;
         }
 
-        public MenuBuilder SET_ID(string id)
+        public MenuBuilder HEADER(string title, string id)
         {
+            Root.Title = title;
             Root.Id = id;
             return this;
         }
 
-        public MenuBuilder SetOption(string title, string id, Action action)
+        public MenuBuilder SetOption(string title, Action action, string id)
         {
-            var option = new Menu(title, id, action);
+            var option = new Menu(title, action, id);
+            Root.AppendChild(option);
+            return this;
+        }
+
+        public MenuBuilder SetOption(string title, Action action)
+        {
+            var option = new Menu(title, action);
             Root.AppendChild(option);
             return this;
         }
