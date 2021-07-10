@@ -14,31 +14,31 @@ namespace EasyMenu.src
 
         public void Execute()
         {
-            //TODO: fix
-            while(true)
+            //TODO: Improve
+            while (true)
             {
                 var current = _contexts.Peek();
                 if (_contexts.Count == 1 || current.ChildsCount > 0)
-                    current.Display();      
-                var option = int.Parse(Console.ReadLine());
-                if (option == current.ChildsCount && _contexts.Count == 1)
+                    current.Display();
+                var valid = int.TryParse(Console.ReadLine(), out int option);
+
+                if (option <= current.ChildsCount && valid)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Ha salido de la aplicacion...");
-                    break;
-                }                  
-                else if (option == current.ChildsCount)
-                {
-                    _contexts.Pop();
+                    if (option == current.ChildsCount && _contexts.Count == 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Ha salido de la aplicacion...");
+                        break;
+                    }
+                    else if (option == current.ChildsCount)
+                    {
+                        _contexts.Pop();
+                    }
+                    else if (current.Select(option).ChildsCount > 0)
+                    {
+                        _contexts.Push(current.Select(option));
+                    }
                 }
-                else if (current.Select(option).ChildsCount > 0)
-                {
-                    _contexts.Push(current.Select(option));
-                }
-                //else
-                //{
-                //    current.Select(option);
-                //}
             }
         }
     }

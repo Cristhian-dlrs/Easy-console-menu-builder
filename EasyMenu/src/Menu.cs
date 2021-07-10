@@ -5,6 +5,8 @@ namespace EasyMenu.src
 {
     public class Menu
     {
+        //TODO: Refactor
+
         public string Title { get; set; }
         public string Id { get; set; }
         public Action Action { get; set; } = () => { };

@@ -51,16 +51,16 @@ namespace EasyMenu.src
             return this;
         }
 
-        public MenuBuilder SetOption(string title, Action action, string id)
+        public MenuBuilder SetOption(string title, Action action)
         {
-            var option = new Menu(title, action, id);
+            var option = new Menu(title, action);
             Root.AppendChild(option);
             return this;
         }
 
-        public MenuBuilder SetOption(string title, Action action)
+        public MenuBuilder SetOption(string title, Action action, string id)
         {
-            var option = new Menu(title, action);
+            var option = new Menu(title, action, id);
             Root.AppendChild(option);
             return this;
         }

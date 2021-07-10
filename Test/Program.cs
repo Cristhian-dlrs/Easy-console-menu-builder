@@ -43,7 +43,7 @@ namespace Test
             //element.Styles.Color = ConsoleColor.Blue;
 
             var bacOptions = myMenu.GetAllElementsByID("menu");
-            foreach (var item in bacOptions) item.Styles.ColorHeader = ConsoleColor.Red;
+            foreach (var item in bacOptions) item.Styles.Color = ConsoleColor.Red;
 
             //var targetOptions = myMenu.GetAllElementsByID("m1");
             //foreach (var item in targetOptions) item.Styles.Color = ConsoleColor.Green;
