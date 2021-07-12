@@ -33,7 +33,7 @@ namespace Test
                     .END_SUBMENU
                     .SetOption("realizar alguna accion", testAction)
                     .SetOption("realizar alguna accion", testAction)
-                    .END_MENU;
+                .END_MENU;
 
 
 
