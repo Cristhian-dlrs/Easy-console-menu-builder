@@ -3,11 +3,6 @@ namespace EasyMenu.src
 {
     public class MenuBuilder
     {
-        //TODO: sacar interfaz y dividir en dos clases
-        
-        //
-        // Esta clase modela un elelmento del menu, dicho elemento puede ser un contenedor de otros elementos (sub menu) o un elemento simple (una opcion)
-        //
         public Menu Root { get; }
 
         private readonly MenuBuilder _parent;
