@@ -19,9 +19,9 @@ namespace Test
         {
             var myMenu = new MenuBuilder()
                 .NEW_MENU.HEADER("menu principal", "menu")
-                    .SetOption("realizar alguna accion", testAction)
-                    .SetOption("realizar alguna accion", testAction)
-                    .SetOption("realizar alguna accion", testAction)
+                    .SetOption("realizar alguna accion", testAction, "demo")
+                    .SetOption("realizar alguna accion", testAction, "demo")
+                    .SetOption("realizar alguna accion", testAction, "demo")
                     .ADD_SUBMENU.HEADER("primer submenu", "menu")
                         .SetOption("realizar alguna accion", testAction)
                         .ADD_SUBMENU.HEADER("summenu interno", "menu")
@@ -42,8 +42,8 @@ namespace Test
             //var element = myMenu.GetElementByID("demo");
             //element.Styles.Color = ConsoleColor.Blue;
 
-            var bacOptions = myMenu.GetAllElementsByID("menu");
-            foreach (var item in bacOptions) item.Styles.Color = ConsoleColor.Red;
+            var bacOptions = myMenu.GetAllElementsByID("demo");
+            //foreach (var item in bacOptions) item.Styles.Hidden = true;
 
             //var targetOptions = myMenu.GetAllElementsByID("m1");
             //foreach (var item in targetOptions) item.Styles.Color = ConsoleColor.Green;

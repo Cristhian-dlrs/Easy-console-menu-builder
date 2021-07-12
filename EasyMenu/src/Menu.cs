@@ -55,9 +55,12 @@ namespace EasyMenu.src
 
         public void Print()
         {
-            Console.ForegroundColor = Styles.Color;
-            Console.WriteLine($"[{ Index }]-{ CapitalizrFirst(Title) }\r\n");
-            Console.ForegroundColor = ConsoleColor.White;
+            if (!Styles.Hidden)
+            {
+                Console.ForegroundColor = Styles.Color;
+                Console.WriteLine($"[{ Index }]-{ CapitalizrFirst(Title) }\r\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }    
         }
 
         private string CapitalizrFirst(string str)
