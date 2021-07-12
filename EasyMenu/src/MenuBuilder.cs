@@ -3,6 +3,9 @@ namespace EasyMenu.src
 {
     public class MenuBuilder
     {
+        //
+        // Esta clase proporciona una interfaz fluida para definir los elementos de nuestro menu.
+        //
         public Menu Root { get; }
 
         private readonly MenuBuilder _parent;
@@ -14,7 +17,7 @@ namespace EasyMenu.src
         {
             _parent = parent;
         }
-
+       
         public MenuBuilder NEW_MENU => this;
 
         public MenuBuilder ADD_SUBMENU => new MenuBuilder(this);

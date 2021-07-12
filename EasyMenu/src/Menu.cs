@@ -6,6 +6,12 @@ namespace EasyMenu.src
     public class Menu
     {
         //TODO: Refactor
+        
+        //TODO: sacar interfaz y dividir en dos clases
+        
+        //
+        // Esta clase modela un elelmento del menu, dicho elemento puede ser un contenedor de otros elementos (sub menu) o un elemento simple (una opcion)
+        //
 
         public string Title { get; set; }
         public string Id { get; set; }
