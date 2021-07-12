@@ -5,6 +5,10 @@ namespace EasyMenu.src
 {
     public class MenuManager
     {
+        //
+        // Esta clase maneja la navegacion dentro del menu previamente creado.
+        //
+        
         private Stack<Menu> _contexts = new Stack<Menu>();
 
         public MenuManager(Menu menu)
